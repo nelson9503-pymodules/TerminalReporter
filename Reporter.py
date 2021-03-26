@@ -13,15 +13,21 @@ class Reporter:
         self.what = what
         self.totalStep = None
         self.nowStep = 0
+        self.totalSubstep = None
+        self.nowSubstep = 0
 
     def initialize_stepIntro(self, totalStep: int):
         self.totalStep = totalStep
         self.nowStep = 0
 
-    def report(self, withStepIntro=False):
-        if withStepIntro == False:
-            print("|{}\t|{}".format(self.who, self.what))
-        else:
-            self.nowStep += 1
-            print("|{}\t|{}\t|{}/{}".format(self.who,
-                                            self.what, self.nowStep, self.totalStep))
+    def initialize_substepIntro(self, totalSubstep: int):
+        self.totalSubstep = totalSubstep
+        self.nowSubstep = 0
+
+    def report(self, withStepIntro=False, withSubstepIntro=False):
+        printInfo = "|{}\t|{}".format(self.who, self.what)
+        if withStepIntro == True:
+            printInfo += " |{}/{}".format(self.nowStep, self.totalStep)
+        if withSubstepIntro == True:
+            printInfo += " |{}/{}".format(self.nowSubstep, self.totalSubstep)
+        print(printInfo)
